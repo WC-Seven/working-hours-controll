@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/AAAAAAAAAAAAAAAAlIoy/5SLMv6TizL/lIky/pSLMf+VijT/lIky/5SJMv+VijH+lIoy/pWLMf+VijH/lIoy/wAAAAAAAAAAAAAAAJSKM/6WijH/lIoy/5SKMf6VijL+looy/pSKMf/+//7////+/f////2UijH/lIox/5SKMv8AAAAAAAAAAAAAAACUijP+lIoy/wAAAAAAAAAAAAAAAJSKMv////7/lIoy/5WKMv+UijL//////pWLMf+UijL/AAAAAAAAAAAAAAAAlYoy/5SKMv8AAAAAAAAAAAAAAACUijL///7//pSKMf7//v/+k4ox/v/+//6UiTP+lIoy/wAAAAAAAAAAAAAAAJSLM/6UijL/AAAAAAAAAAAAAAAAlIoy///+//6UijL/lIoy/5SKMv///v/+lIoz/5SKMv8AAAAAAAAAAAAAAACVizL/lIoy/wAAAAAAAAAAAAAAAAAAAACUijL///7//v/+//7//v/+lIoy/5WKM/+UijL/AAAAAAAAAAAAAAAAlIoz/5SKMv8AAAAAAAAAAAAAAAAAAAAAAAAAAJSKMv+UijL/lIoy/wAAAACTiTL/lIoy/wAAAAAAAAAAAAAAAJSKMv6UijL/lIoy/5SKMv+UijL/lIoy/wAAAAAAAAAAAAAAAAAAAAAAAAAAlooz/pSKMv8AAAAAAAAAAAAAAACUijL+lIoy/5WLMf6UiTP/lYox/pSKMv+VizP/lYoy/pWKMf6TijH/k4sy/pSLM/6UijL/AAAAAAAAAAAAAAAAlYkz/pSKMv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACViTL/lIoy/wAAAAAAAAAAAAAAAJWKMv+UijL/AAAAAJSKMv8AAAAAlIoy/wAAAACUijL/AAAAAAAAAAAAAAAAlIoy/pSKMv8AAAAAAAAAAAAAAACVijT+lIoy/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJSKMf+UijL/AAAAAAAAAAAAAAAAlIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/wAAAAAAAAAAAAAAAJSKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv+UijL/lIoy/5SKMv8AAAAA//8AAMABAADAAQAAwAEAAM4BAADOAQAAzgEAAM8BAADPiQAAwPkAAMABAADP+QAAyrkAAM/5AADAAQAAwAEAAA==" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+
+    <style>
+        #modal-story {
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+  <script type="module" crossorigin src="/controle-jornada/painel/assets/index-51b8d5ab.js"></script>
+  <link rel="stylesheet" href="/controle-jornada/painel/assets/index-615faa36.css">
+</head>
+
+<body class="bg-black">
+    <div class="container h-screen p-5">
+        <div class="grid grid-cols-12 mb-2 p-2 rounded-md gap-y-2" id="header-container">
+            <div class="col-span-12">
+                <div class="grid grid-cols-12 border-b-2 pb-2" id="nav-actions">
+                    <div class="col-span-4 lg:col-span-2 flex flex-row">
+                        <div>
+                            <input type="text" id="nr_help" class="w-[150px] border-1 shadow-lg rounded-l-md h-7 " />
+                        </div>
+                        <div>
+                            <button id="btn-add" class="bg-green-500 text-white px-1.5 h-7 w-7 rounded-r-md" onclick="addAtividade()">
+                                <i class="icon fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-span-8 flex flex-row gap-x-2">
+                        <div class="text-center hidden lg:block invisible xl:visible">
+                            <button id="btn-add-user" class="bg-blue-600 shadow-md text-white px-2 rounded-md h-7"
+                                onclick="addAjudaColega('SEM_HELP')">
+                                SEM HELP
+                            </button>
+                        </div>
+                        <div class="text-center col-span-4 lg:col-span-1">
+                            <button id="btn-add-user" class="bg-blue-600 shadow-md text-white px-2 rounded-md h-7"
+                                onclick="showHideArquivados(!config.exibirArquivados)">
+                                <i class="icon fas fa-archive"></i>
+                            </button>
+                        </div>
+                        <div class="text-center col-span-4 lg:col-span-1">
+                            <button id="btn-add-user" class="bg-blue-600 shadow-md text-white px-2 rounded-md h-7"
+                                onclick="downloadMinhasAtividades()">
+                                <i class="icon fas fa-download"></i>
+                            </button>
+                        </div>
+                        <div class="text-center col-span-4 lg:col-span-1">
+                            <button id="btn-dark-mode" class="bg-gray-600 shadow-md text-white px-2 rounded-md h-7"
+                                onclick="toggleDarkMode()">
+                                <span id="dark-mode-icon">🌙</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-1 text-bold text-white hidden lg:block">
+                ID
+            </div>
+            <div class="col-span-2 text-bold text-white hidden lg:block">
+                DT INICIO
+            </div>
+            <div class="col-span-1 text-bold text-white hidden lg:block">
+                TOTAL HORAS
+            </div>
+            <div class="col-span-1 text-bold text-white hidden lg:block">
+                TEMPO ATUAL
+            </div>
+            <div class="col-span-2 text-bold text-white hidden lg:block">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1" id="minhasAtividades">
+            <!-- adiconado dinamicamante -->
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div class="bg-white w-2/5 h-2/3 top-[400px] rounded-md z-50 fixed flex border border-stone-400 pt-[30px]" id="modal-story" style="display: none;">
+
+        <!-- title -->
+        <div id="modal-title"
+            class="w-full absolute top-0 h-[30px] bg-blue-600 p-1 rounded-t-md font-bold text-white text-center"></div>
+
+        <!-- content -->
+        <div id="modal-content" class="w-full p-2 overflow-y-auto"></div>
+
+        <!-- footer -->
+        <div class="absolute bottom-1 right-6">
+            <button id="btn-close-modal" class="bg-red-500 text-white px-2 rounded-md" onclick="modalOnClose()">
+                FECHAR
+            </button>
+        </div>
+    </div>
+    <!-- // modal -->
+
+    
+
+    <script type="text/javascript">
+        let minhasAtividades = [];
+        let atividadeEmAndamento = {};
+        let storyOnview = [];
+        let config = {
+            exibirArquivados: false,
+            darkMode: false,
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (minhasAtividades.length === 0) {
+                localStorage.getItem("minhasAtividades") ? minhasAtividades = JSON.parse(localStorage.getItem("minhasAtividades")) : minhasAtividades = [];
+            }
+
+            atividadeEmAndamento = localStorage.getItem("atividadeEmAndamento") ? JSON.parse(localStorage.getItem("atividadeEmAndamento")) : {};
+
+            // Carrega configurações do localStorage
+            const savedConfig = localStorage.getItem("config");
+            if (savedConfig) {
+                config = { ...config, ...JSON.parse(savedConfig) };
+            }
+
+            // Inicializa o header com a classe padrão
+            const headerContainer = document.getElementById('header-container');
+            headerContainer.classList.add('bg-blue-500');
+
+            // Aplica dark mode se estiver ativo
+            if (config.darkMode) {
+                applyDarkMode();
+            }
+
+            if (Object.keys(atividadeEmAndamento).length > 0) {
+                setInterval(cronometro, 1000);
+            }
+
+            renderMinhasAtividades();
+
+            $("#nr_help").keyup(function (event) {
+                if (event.key === "Enter") {
+                    addAtividade();
+                }
+            });
+
+        });
+
+        function showHideArquivados(toogle) {
+            config.exibirArquivados = toogle;
+            renderMinhasAtividades();
+        }
+
+        function toggleDarkMode() {
+            config.darkMode = !config.darkMode;
+            
+            if (config.darkMode) {
+                applyDarkMode();
+            } else {
+                removeDarkMode();
+            }
+            
+            // Salva configuração no localStorage
+            localStorage.setItem("config", JSON.stringify(config));
+            renderMinhasAtividades();
+        }
+
+        function applyDarkMode() {
+            document.body.classList.remove('bg-black');
+            document.body.classList.add('bg-gray-900', 'text-white');
+            document.getElementById('dark-mode-icon').textContent = '☀️';
+            
+            // Atualiza o header
+            const headerContainer = document.getElementById('header-container');
+            headerContainer.classList.remove('bg-blue-500');
+            headerContainer.classList.add('bg-gray-800');
+        }
+
+        function removeDarkMode() {
+            document.body.classList.remove('bg-gray-900', 'text-white');
+            document.body.classList.add('bg-black');
+            document.getElementById('dark-mode-icon').textContent = '🌙';
+            
+            // Atualiza o header
+            const headerContainer = document.getElementById('header-container');
+            headerContainer.classList.remove('bg-gray-800');
+            headerContainer.classList.add('bg-blue-500');
+        }
+
+        function addAjudaColega(nm_colega) {
+            let nr_ajuda = minhasAtividades.length + 1;
+
+            nm_colega = nm_colega + "_" + nr_ajuda;
+
+            minhasAtividades = [...minhasAtividades, {
+                nr_help: nm_colega,
+                inicio: new Date(),
+                total: 0,
+                story: [],
+                descricao: ""
+            }];
+
+            renderMinhasAtividades();
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+        }
+
+        function addAtividade() {
+            let nr_help = $("#nr_help").val();
+
+            if (!nr_help || nr_help == "") return;
+
+            let alreadyExists = minhasAtividades.find(item => item.nr_help === nr_help);
+
+            if (alreadyExists) {
+                $("#nr_help").val("");
+                alert("Atividade já cadastrada");
+                return;
+            }
+
+            minhasAtividades = [...minhasAtividades, {
+                nr_help: nr_help,
+                inicio: new Date(),
+                deleted_at: null,
+                total: 0,
+                descricao: "",
+                story: []
+            }];
+
+            $("#nr_help").val("");
+
+            renderMinhasAtividades();
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+        }
+
+        function cronometro() {
+            const agora = new Date();
+            const start = new Date(atividadeEmAndamento.start);
+            const tempoDecorrido = new Date(agora - start);
+
+            // Formata horas, minutos e segundos
+            const horas = String(tempoDecorrido.getUTCHours()).padStart(2, '0');
+            const minutos = String(tempoDecorrido.getUTCMinutes()).padStart(2, '0');
+            const segundos = String(tempoDecorrido.getUTCSeconds()).padStart(2, '0');
+
+            // Atualiza o elemento no HTML
+            $("#cronometro-" + atividadeEmAndamento.nr_help).html(`${horas}:${minutos}:${segundos}`);
+        }
+
+        function startAtividade(nr_help) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+
+            if (atividadeEmAndamento?.nr_help && atividadeEmAndamento.nr_help != nr_help) {
+                stopAtividade(atividadeEmAndamento.nr_help);
+            }
+
+            atividade.story.push([{ start: new Date(), stop: null }]);
+
+            atividadeEmAndamento.nr_help = nr_help;
+            atividadeEmAndamento.start = new Date();
+
+            setInterval(cronometro, 1000);
+
+            renderMinhasAtividades();
+
+            $("#atividade-" + nr_help).addClass("loading");
+
+            localStorage.setItem("atividadeEmAndamento", JSON.stringify(atividadeEmAndamento));
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+        }
+
+        function calculaTotal(nr_help) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+            let total = 0;
+            // Calcula a diferença entre cada stop e start em milissegundos
+            atividade.story.forEach(storyArray => {
+                storyArray.forEach(story => {
+                    if (story.start && story.stop) {
+                        total += new Date(story.stop) - new Date(story.start); // Diferença em milissegundos
+                    }
+                });
+            });
+
+            // Converte para horas e minutos
+            let totalHoras = Math.floor(total / (1000 * 60 * 60)); // Horas inteiras
+            let totalMinutos = Math.floor((total % (1000 * 60 * 60)) / (1000 * 60)); // Minutos restantes
+
+            // Formata como h:mm
+            let totalFormatado = `${totalHoras}:${totalMinutos.toString().padStart(2, '0')}`;
+            atividade.total = totalFormatado;
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+            renderMinhasAtividades();
+        }
+
+        function stopAtividade(nr_help) {
+            $("#atividade-" + nr_help).remove("loading");
+
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+
+            if (!atividade) {
+                alert("Atividade não encontrada");
+                return;
+            }
+
+            let story = atividade.story[atividade.story.length - 1];
+
+            // Define a hora de parada como o momento atual
+            story[story.length - 1].stop = new Date();
+
+            let total = 0;
+
+            // Calcula a diferença entre cada stop e start em milissegundos
+            atividade.story.forEach(storyArray => {
+                storyArray.forEach(story => {
+                    if (story.start && story.stop) {
+                        total += new Date(story.stop) - new Date(story.start); // Diferença em milissegundos
+                    }
+                });
+            });
+
+            // Converte para horas e minutos
+            let totalHoras = Math.floor(total / (1000 * 60 * 60)); // Horas inteiras
+            let totalMinutos = Math.floor((total % (1000 * 60 * 60)) / (1000 * 60)); // Minutos restantes
+
+            // Formata como h:mm
+            let totalFormatado = `${totalHoras}:${totalMinutos.toString().padStart(2, '0')}`;
+
+            atividade.total = totalFormatado;
+
+            atividadeEmAndamento = {};
+            localStorage.removeItem("atividadeEmAndamento");
+
+            renderMinhasAtividades();
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+
+            console.log(`Tempo total da atividade ${nr_help}: ${totalFormatado}`);
+        }
+
+        function arquivarAtividade(nr_help) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+
+            if (!atividade) {
+                alert("Atividade não encontrada");
+                return;
+            }
+
+            atividade.deleted_at = new Date();
+
+            const emAndamento = atividadeEmAndamento.nr_help == nr_help;
+            if (emAndamento) {
+                stopAtividade(nr_help);
+                atividadeEmAndamento = {};
+                localStorage.removeItem("atividadeEmAndamento");
+            }
+
+            renderMinhasAtividades();
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+
+            console.log(`Arquivado em ${nr_help}: ${atividade.deleted_at}`);
+        }
+
+        function restaurarAtividade(nr_help) {
+
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+
+            if (!atividade) {
+                alert("Atividade não encontrada");
+                return;
+            }
+
+            atividade.deleted_at = null;;
+
+            renderMinhasAtividades();
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+
+            console.log(`Restaurando: ${nr_help}`);
+        }
+
+        function addDescricao(text, nr_help) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+            atividade.descricao = text;
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+        }
+
+        function deleteAtividade(nr_help) {
+            if (!confirm("Tem certeza?")) return;
+
+            if (atividadeEmAndamento?.nr_help == nr_help) {
+                stopAtividade(atividadeEmAndamento.nr_help);
+            }
+
+            let index = minhasAtividades.findIndex(item => item.nr_help === nr_help);
+
+            if (index !== -1) {
+                minhasAtividades.splice(index, 1);
+            }
+
+            renderMinhasAtividades();
+
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+        }
+
+        function renderMinhasAtividades() {
+            let html = minhasAtividades.map((item, index) => {
+                const dtArquivado = item.deleted_at ? new Date(item.deleted_at) : null;
+
+                if (!config.exibirArquivados && dtArquivado) {
+                    return null;
+                };
+
+                const emAndamento = atividadeEmAndamento.nr_help == item.nr_help;
+                
+                // Define classes baseado no dark mode
+                const bgClass = config.darkMode 
+                    ? (dtArquivado ? "bg-gray-600" : "odd:bg-gray-800 even:bg-gray-700")
+                    : (dtArquivado ? "bg-stone-400" : "odd:bg-white even:bg-gray-100");
+                
+                const textClass = config.darkMode 
+                    ? (dtArquivado ? "text-gray-400" : "text-white")
+                    : (dtArquivado ? "text-gray-500" : "");
+                
+                const inputBgClass = config.darkMode 
+                    ? (dtArquivado ? "bg-gray-600" : "bg-gray-700 text-white border-gray-600")
+                    : (dtArquivado ? "bg-stone-400" : "");
+
+                return (`
+                    <div class="${bgClass} p-2 ${emAndamento ? "loading" : ""}" id="atividade-${item.nr_help}">
+                        <div class="grid grid-cols-12">
+                            <div class="col-span-5 lg:col-span-1 font-semibold ${textClass}">
+                                ${item.nr_help}
+                            </div>
+                            <div class="col-span-5 lg:col-span-2 italic ${textClass}">
+                                ${moment(item.inicio).format("DD/MM/YYYY HH:mm")}
+                            </div>
+                            <div class="col-span-2 lg:col-span-1 ${dtArquivado ? textClass : "text-green-500"} font-semibold text-lg" id="total-${item.nr_help}">
+                                ${item.total}
+                            </div>
+                            <div class="col-span-12 lg:col-span-1 font-semibold ${config.darkMode ? 'text-white' : 'text-red-500'}" id="cronometro-${item.nr_help}">
+                            </div>
+                            <div class="col-span-12 lg:col-span-2 flex flex-row gap-x-2">
+                                <button id="btn-start-${item.nr_help}" class="text-white bg-blue-500 px-1.5 h-7 w-7 rounded-md ${emAndamento ? 'hidden' : ''} ${dtArquivado ? "hidden" : ""}" onclick="startAtividade('${item.nr_help}')">
+                                    <i class="icon fas fa-play"></i>
+                                </button>
+                                <button id="btn-stop-${item.nr_help}" class="bg-red-500 text-white px-1.5 h-7 w-7 rounded-md ${emAndamento ? '' : 'hidden'}" onclick="stopAtividade('${item.nr_help}')">
+                                    <i class="icon fas fa-stop"></i>
+                                </button>
+                                <button id="btn-story-${item.nr_help}" class="bg-white border border-blue-500 text-blue-500 px-1  h-7 w-7 rounded-md" onclick="viewStory('${item.nr_help}')">
+                                    <i class='fas fa-clock-rotate-left'></i>
+                                </button>
+                                <button id="btn-archive-${item.nr_help}" class="bg-white border border-blue-500 text-blue-500 px-1  h-7 w-7 rounded-md ${dtArquivado ? "hidden" : ""}" onclick="arquivarAtividade('${item.nr_help}')">
+                                    <i class="icon fas fa-file-arrow-down"></i>
+                                </button>
+                                <button id="btn-restore-${item.nr_help}" class="bg-white border border-blue-500 text-blue-500 px-1  h-7 w-7 rounded-md ${!dtArquivado ? "hidden" : ""}" onclick="restaurarAtividade('${item.nr_help}')">
+                                    <i class="icon fas fa-file-arrow-up"></i>
+                                </button>
+                                <button  id="btn-delete-${item.nr_help}" class="bg-white border border-red-500 text-red-500 px-1  h-7 w-7 rounded-md ${dtArquivado ? "hidden" : ""}" onclick="deleteAtividade('${item.nr_help}')">
+                                    <i class="icon fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="col-span-5 hidden lg:block">
+                                <div class="hidden">
+                                    Arquivado: ${moment(dtArquivado).fromNow()}
+                                </div>
+                                <input
+                                    type="text"
+                                    onblur="addDescricao(this.value, '${item.nr_help}')"
+                                    class="border border-grey-400 rounded-md w-full p-0.5 ${inputBgClass}"
+                                    value="${item.descricao}"/>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }).reverse();
+
+            $("#minhasAtividades").html(html);
+        }
+
+        function alteraDataStart(data, nr_help, index) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+            atividade.story[index][0].start = moment(data).toISOString();
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+            calculaTotal(nr_help);
+        }
+
+        function alteraDataStop(data, nr_help, index) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+            atividade.story[index][0].stop = moment(data).toISOString();
+            localStorage.setItem("minhasAtividades", JSON.stringify(minhasAtividades));
+            calculaTotal(nr_help);
+        }
+
+        function viewStory(nr_help) {
+            let atividade = minhasAtividades.find(item => item.nr_help == nr_help);
+
+            if (!atividade) {
+                alert("Atividade não encontrada");
+                return;
+            }
+
+            const storyData = atividade.story || [];
+
+            // Agrupa por data
+            const storyByDate = {};
+
+            storyData.forEach((sto, index) => {
+                const start = moment(sto[0]?.start);
+                const stop = moment(sto[0]?.stop || new Date());
+                const dateKey = start.format('YYYY-MM-DD');
+
+                if (!storyByDate[dateKey]) {
+                    storyByDate[dateKey] = [];
+                }
+
+                storyByDate[dateKey].push({
+                    index,
+                    start,
+                    stop,
+                    duration: moment.duration(stop.diff(start))
+                });
+            });
+
+            // Monta o HTML
+            let html = '';
+
+            Object.entries(storyByDate).reverse().forEach(([date, logs]) => {
+                let totalDuration = logs.reduce((sum, l) => sum + l.duration.asMinutes(), 0);
+                let formattedTotal = `${Math.floor(totalDuration / 60)}:${String(Math.floor(totalDuration % 60)).padStart(2, '0')}`;
+
+                html += (`
+                    <div class="mb-6 p-2 bg-white border-l-2 border-blue-500 rounded-t-lg relative">
+                        <div class="absolute text-blue-500 left-[-28px] text-xl">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-gray-400">${moment(date).format('DD/MM/YYYY')}
+                            <span class="text-sm">Total: ${formattedTotal}h</span>
+                        </h3>
+                    <div class="flex flex-col gap-1">
+                `);
+
+                logs.forEach(({ index, start, stop, duration }) => {
+                    let formattedDuration = `${Math.floor(duration.asHours())}:${String(duration.minutes()).padStart(2, '0')}`;
+
+                    html += (`
+                        <div class="relative shadow-lg rounded-lg bg-white">
+                            <div class="p-1 rounded-md absolute right-0 text-blue-500 font-semibold top-[24px] pr-2 bg-white">
+                                ${formattedDuration}h
+                            </div>
+                            <div class="flex align-items-center border-b">
+                                <div class="text-green-500 p-1 m-1">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <input
+                                    class="cursor-pointer"
+                                    type="datetime-local"
+                                    id="data_start_${index}_${nr_help}"
+                                    value="${start.format("YYYY-MM-DDTHH:mm")}"
+                                    onchange="alteraDataStart(this.value, '${nr_help}', ${index})" />
+                            </div>
+                            <div class="flex align-items-center p-1">
+                                <div class="text-red-500 p-1 m-1">
+                                    <i class="fas fa-pause"></i>
+                                </div>
+                                <input
+                                    class="cursor-pointer"
+                                    type="datetime-local"
+                                    id="data_stop_${index}_${nr_help}"
+                                    value="${stop.format("YYYY-MM-DDTHH:mm")}"
+                                    onchange="alteraDataStop(this.value, '${nr_help}', ${index})" />
+                            </div>
+                        </div>
+                    `);
+                });
+
+                html += `</div></div>`;
+            });
+
+            $("#modal-title").html(nr_help);
+            $("#modal-content").html(`<div class="flex flex-col w-full md:w-2/3 mx-auto">${html}</div>`);
+            $("#modal-story").fadeIn();
+        }
+
+
+        function modalOnClose() {
+            $('#modal-story').fadeOut();
+            storyOnview = [];
+            $("#modal-content").empty();
+        }
+
+        function downloadMinhasAtividades() {
+            const raw = localStorage.getItem("minhasAtividades");
+            const data = JSON.stringify(JSON.parse(raw), null, 2); // Formata bonito
+
+            const blob = new Blob([data], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            // Gera a data no formato dd-mm-yyyy
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro = 0
+            const yyyy = today.getFullYear();
+            const formattedDate = `${dd}-${mm}-${yyyy}`;
+
+            // Cria e aciona o download
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `minhas_atividades_${formattedDate}.json`;
+            a.click();
+
+            URL.revokeObjectURL(url); // Limpa a URL temporária
+        }
+    </script>
+</body>
+
+</html>
